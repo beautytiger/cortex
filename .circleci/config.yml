@@ -77,7 +77,7 @@ jobs:
           MIGRATIONS_DIR=$(pwd)/cmd/cortex/migrations make BUILD_IMAGE=cortexproject/build-image:1370-pin-protoc-7ae297930 configs-integration-test
     - run:
         name: Load Images
-        command: cd /tmp; make -f $CIRCLE_WORKING_DIRECTORY/Makefile BUILD_IN_CONTAINER=false load-images
+        command: ln -s /tmp/images ./images; make BUILD_IN_CONTAINER=false load-images
     - run:
         name: Ingester hand-over test
         command: ./integration-tests/test-handover.sh
@@ -125,7 +125,7 @@ jobs:
 
     - run:
         name: Load Images
-        command: cd /tmp; make -f $CIRCLE_WORKING_DIRECTORY/Makefile BUILD_IN_CONTAINER=false load-images
+        command: ln -s /tmp/images ./images; make BUILD_IN_CONTAINER=false load-images
 
     - run:
         name: Deploy
