@@ -106,7 +106,10 @@ jobs:
 
     - run:
         name: Save Images
-        command: cd /tmp; make -f $CIRCLE_WORKING_DIRECTORY/Makefile BUILD_IN_CONTAINER=false save-images
+        command: |
+          mkdir /tmp/images
+          ln -s /tmp/images ./images
+          make BUILD_IN_CONTAINER=false save-images
 
     - save_cache:
         key: v1-cortex-{{ .Branch }}-{{ .Revision }}
