@@ -71,13 +71,13 @@ jobs:
     - restore_cache:
         key: v1-cortex-{{ .Branch }}-{{ .Revision }}
     - run:
+        name: Load Images
+        command: ln -s /tmp/images ./images; make BUILD_IN_CONTAINER=false load-images
+    - run:
         name: Integration Test
         command: |
           touch build-image/.uptodate
           MIGRATIONS_DIR=$(pwd)/cmd/cortex/migrations make BUILD_IMAGE=cortexproject/build-image:1370-pin-protoc-7ae297930 configs-integration-test
-    - run:
-        name: Load Images
-        command: ln -s /tmp/images ./images; make BUILD_IN_CONTAINER=false load-images
     - run:
         name: Ingester hand-over test
         command: ./integration-tests/test-handover.sh
